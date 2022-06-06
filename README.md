@@ -3,7 +3,7 @@
 ENDPOINTS
 ---------
 localhost:4000/binance
-localhost:4000/coingecko
+localhost:4000/coingecko/(nombre de la criptomoneda)
 localhost:4000/coinmarket
 
 Docker

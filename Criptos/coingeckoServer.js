@@ -1,16 +1,18 @@
-const fetch = require("cross-fetch")
-const endpoint = "https://api.coingecko.com/api/v3/coins";
+const apiCoinGecko = require("../api");
 
 
-const criptoCoingecko = (req, res) => {
-    fetch(endpoint)
-    .then( response => response.json() )
-    .then( data => mostrarData(data) )
-    .catch( error => console.log("Ha ocurrido el siguiente error: "+error) )
-  
-  const mostrarData = (data) => {
-      res.status(200).json(data)
-  }  
+const criptoCoingecko = async (req, res) => {
+  const { id } = req.params;
+  try {
+      const { data } = await apiCoinGecko.get(`coins/${id}`) 
+
+      return res.status(200).send({
+          Name: data.name,
+          Price: data.market_data.current_price.usd + " dollars",
+      })
+  } catch (error) {
+      return res.status(500).send("Ha sucedido el siguiente error: "+error)
+  }
 }
 
 
